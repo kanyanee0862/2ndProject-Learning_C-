@@ -8,7 +8,6 @@ Ship::Ship(class Game* game)
 {
 	AnimSpriteComponent* asc = new AnimSpriteComponent(this);
 	std::vector<SDL_Texture*> anims = {
-		/*game->GetTexture("Assets/10.png"),*/
 		game->GetTexture("Assets/Ship01.png"),
 		game->GetTexture("Assets/Ship02.png"),
 		game->GetTexture("Assets/Ship03.png"),

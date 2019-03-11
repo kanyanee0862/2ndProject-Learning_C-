@@ -9,8 +9,8 @@ public:
 	//背景ですので、描画順番の値を小さくして、一番後ろにする
 	BGSpriteComponent(class Actor* owner,int drawOrder = 10);
 	//継承先をオバーライド
-	void Update(float deltaTime) override;
-	void Draw(SDL_Renderer* renderer) override;
+	virtual void Update(float deltaTime) override;
+	virtual void Draw(SDL_Renderer* renderer) override;
 	//テキスチャーを設置
 	void SetBGTextures(const std::vector<SDL_Texture*>& textures);
 	//ゲット・セットウィンドウズサイズとスクロール速度

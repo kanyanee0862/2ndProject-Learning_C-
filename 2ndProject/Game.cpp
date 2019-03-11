@@ -5,13 +5,13 @@
 #include "Ship.h"
 #include "SpriteComponent.h"
 #include "BGSpriteComponent.h"
+
 Game::Game()
 :mWindow(nullptr)
 ,mRenderer(nullptr)
 ,mIsRunning(true)
 ,mUpdatingActors(false)
 {
-
 }
 bool Game::Initialize()
 {
@@ -33,7 +33,11 @@ bool Game::Initialize()
 		SDL_Log("Failed to create window: %s", SDL_GetError());
 		return false;
 	}
-	mRenderer = SDL_CreateRenderer(mWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+	mRenderer = SDL_CreateRenderer(mWindow, 
+									-1, 
+									SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC
+								  ); //ウィンドウの2Dレンダリングコンテキストを生成する
+	//2Dレンダリングコンテキストを確認する
 	if (!mRenderer)
 	{
 		SDL_Log("Failed to create renderer: %s", SDL_GetError());
@@ -58,7 +62,7 @@ void Game::RunLoop()
 	{
 		ProcessInput();
 		UpdateGame();
-		GenerateOutput();
+ 		GenerateOutput();
 	}
 }
 void Game::ProcessInput()
@@ -159,7 +163,7 @@ void Game::LoadData()
 	bg->SetBGTextures(bgtexs);
 	bg->SetScrollSpeed(-100.0f);
 	// Create the closer background
-	bg = new BGSpriteComponent(temp, 50);
+	bg = new BGSpriteComponent(temp, 20);
 	bg->SetScreenSize(Vector2(1024.0f, 768.0f));
 	bgtexs = {
 		GetTexture("Assets/Stars-Big1.png"),
@@ -244,6 +248,12 @@ void Game::AddActor(Actor* actor)
 }
 void Game::RemoveActor(Actor* actor)
 {
+	//****
+	//*[first,last) 内のイテレータ i について、
+	//*i == value であるような最初のイテレータを返す。
+	//*そのようなイテレータが見つからなかった場合は last を返す。
+	//****
+
 	//未決登場人物？
 	auto iter = std::find(mPendingActors.begin(), mPendingActors.end(), actor);
 	if(iter != mPendingActors.end())

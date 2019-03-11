@@ -1,3 +1,4 @@
+#include<iostream>
 #include "BGSpriteComponent.h"
 #include "Actor.h"
 BGSpriteComponent::BGSpriteComponent(Actor* owner,int drawOrder)
@@ -13,9 +14,9 @@ void BGSpriteComponent::Update(float deltaTime)
 		//x offsetアプデ―ト
 		bg.mOffset.x += mScrollSpeed * deltaTime;
 		//画面が出でたら、
-		if (bg.mOffset.x < -mScreenSize.x)
+		if (bg.mOffset.x <= -mScreenSize.x)
 		{
-			bg.mOffset.x = mBGTextures.size() - 1* mScreenSize.x - 1;
+			bg.mOffset.x = (mBGTextures.size() - 1) * (mScreenSize.x - 1);
 		}
 	}
 }
@@ -37,6 +38,7 @@ void BGSpriteComponent::Draw(SDL_Renderer* renderer)
 			nullptr,
 			&r
 		);
+		std::cout << mScreenSize.x << "," << r.x << std::endl;;
 	}
 }
 void BGSpriteComponent::SetBGTextures(const std::vector<SDL_Texture*>& textures)

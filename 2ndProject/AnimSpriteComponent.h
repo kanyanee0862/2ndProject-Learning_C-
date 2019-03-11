@@ -7,7 +7,7 @@ class AnimSpriteComponent :public SpriteComponent
 public:
 	AnimSpriteComponent(class Actor* owner, int drawOrder = 100);
 	//毎フレームアニメーション更新
-	void Update(float deltaTime) override;
+	virtual void Update(float deltaTime) override;
 	//テキスチャーを設定
 	void SetAnimTextures(const std::vector<SDL_Texture*>& textures);
 	//アニメーションFPSをセットゲット
